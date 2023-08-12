@@ -12,8 +12,10 @@ chmod +x /usr/local/bin/entrypoint.sh
 set -o errexit
 set -o nounset
 umask 0002
-npm run fix -- "${DIR}/input.js"
-npm run build -- --input "${DIR}/input.js" --file "${DIR}/output.min.js"
+cp package.json rollup.config.js .eslintrc.json .babelrc.json "${DIR}/"
+cd "${DIR}"
+npm run fix -- input.js
+npm run build -- --input input.js --file output.min.js
 '
 
 buildah config \
@@ -39,12 +41,6 @@ buildah run \
 umask 0002
 npm install --global rollup
 npm install --global eslint
-npm install --save-dev @rollup/plugin-node-resolve
-npm install --save-dev @rollup/plugin-commonjs
-npm install --save-dev @rollup/plugin-terser
-npm install --save-dev @rollup/plugin-babel
-npm install --save-dev @babel/preset-env
-npm install --save-dev @babel/core
 '
 
 buildah commit ${ctr} rollup:latest

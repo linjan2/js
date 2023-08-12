@@ -2,9 +2,16 @@ set -o errexit
 set -o nounset
 
 # pushd $(dirname $(readlink -f "${0}")) >/dev/null
-
 TEMP="$(mktemp -d)"
-cat > "${TEMP}/input.js"
+
+if [ ${#} -eq 0 ]
+then
+  cat > "${TEMP}/input.js"
+else
+  cp "${@:1:1}" "${TEMP}/input.js"
+  cp --no-clobber "${@:2}" "${TEMP}/"
+fi
+
 chmod --recursive g+rwX "${TEMP}"
 
 VOLUME=/opt/app-root/src/workdir
