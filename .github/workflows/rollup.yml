@@ -1,12 +1,12 @@
 
-name: Build rollout
+name: Build rollup
 
 on:
   push:
     branches:
       - main
     paths:
-      - 'rollout/**'
+      - 'rollup/**'
   workflow_dispatch:
 
 jobs:
@@ -39,7 +39,7 @@ jobs:
       - name: Build
         uses: docker/build-push-action@v5
         with:
-          context: rollout
+          context: rollup
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
