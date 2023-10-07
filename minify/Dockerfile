@@ -1,4 +1,4 @@
-FROM buildah from registry.access.redhat.com/ubi9/nodejs-16:1-71
+FROM registry.access.redhat.com/ubi9/nodejs-16:1-71
 
 COPY entrypoint.sh /usr/bin/entrypoint.sh
 USER 0:0
