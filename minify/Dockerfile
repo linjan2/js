@@ -1,6 +1,6 @@
-FROM registry.access.redhat.com/ubi9/nodejs-16:1-71
+FROM registry.access.redhat.com/ubi9/nodejs-18:1
 
-WORKDIR /app
+WORKDIR /app/files
 
 RUN \
     npm install --global minify

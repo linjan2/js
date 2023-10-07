@@ -1,19 +1,27 @@
 set -o errexit
 set -o nounset
 
+IMAGE=ghcr.io/linjan2/js/rollup:main
+
+umask 0002
 TEMP="$(mktemp -d)"
 
 if [ ${#} -eq 0 ]
 then
+  # copy stdin into input.js
   cat > "${TEMP}/input.js"
+elif [ ${#} -eq 1 ]
+then
+  # copy first file as input.js
+  cp "${1}" "${TEMP}/input.js"
 else
+  # copy first file as input.js
   cp "${@:1:1}" "${TEMP}/input.js"
+  # then copy the rest
   cp --no-clobber "${@:2}" "${TEMP}/"
 fi
 
 chmod --recursive g+rwX "${TEMP}"
 
-VOLUME=/opt/app-root/src/workdir
-podman run --rm --env "DIR=${VOLUME}" --volume "${TEMP}:${VOLUME}:Z,rw" localhost/rollup:latest >&2
+podman run --rm --volume "${TEMP}:/app/files:Z,rw" ${IMAGE} >&2
 
-cat ${TEMP}/output.min.js
