@@ -1,7 +1,6 @@
 set -o errexit
 set -o nounset
 
-# pushd $(dirname $(readlink -f "${0}")) >/dev/null
 TEMP="$(mktemp -d)"
 
 if [ ${#} -eq 0 ]
