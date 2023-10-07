@@ -1,13 +1,15 @@
 set -o errexit
 set -o nounset
-: $1
 
-FILE="${1}"
-BASENAME="$(basename ${FILE})"
+IMAGE=ghcr.io/linjan2/js/minify:main
+
+umask 0002
 TEMP="$(mktemp -d)"
-cp --verbose "${FILE}" "${TEMP}/${BASENAME}" >&2
-chmod --recursive g+rwX "${TEMP}"
+chmod ug+rwX "${TEMP}"
+cp --verbose "${@}" "${TEMP}/" >&2
+pushd "${TEMP}" >/dev/null
 
-VOLUME=/opt/app-root/src/workdir
-podman run --rm --volume "${TEMP}:${VOLUME}:Z,rw" localhost/minify:latest "${VOLUME}/${BASENAME}"
-  # minify "${INPUT}" > "${OUTPUT}"
+shopt -s nullglob
+shopt -s dotglob
+podman run --rm --volume="${TEMP}:/app/files:Z,rw" --workdir="/app/files" ${IMAGE} *.{js,css,html}
+
