@@ -34,7 +34,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5 #9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
-          images: ${{ github.repository }}/minify
+          images: ghcr.io/${{ github.repository }}/minify
 
       - name: Build
         #uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
