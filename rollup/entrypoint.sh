@@ -25,5 +25,5 @@ cp --no-clobber "${WORKDIR}"/* ./
 npm run fix -- input.js
 npm run build -- --input input.js --file output.min.js
 
-cat output.min.js
+exec cat output.min.js
 

@@ -6,11 +6,7 @@ IMAGE=ghcr.io/linjan2/js/rollup:main
 umask 0002
 TEMP="$(mktemp -d)"
 
-if [ ${#} -eq 0 ]
-then
-  # copy stdin into input.js
-  cat > "${TEMP}/input.js"
-elif [ ${#} -eq 1 ]
+if [ ${#} -eq 1 ]
 then
   # copy first file as input.js
   cp "${1}" "${TEMP}/input.js"
