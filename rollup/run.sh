@@ -19,5 +19,5 @@ fi
 
 chmod --recursive g+rwX "${TEMP}"
 
-podman run --rm --volume "${TEMP}:/app/files:Z,rw" ${IMAGE} >&2
+podman run --rm --volume "${TEMP}:/app/files:Z,rw" ${IMAGE}
 
